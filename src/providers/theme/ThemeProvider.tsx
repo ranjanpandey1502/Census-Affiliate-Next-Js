@@ -1,3 +1,4 @@
+'use client'
 import { ThemeContext } from "@/providers/theme/theme.context";
 import type { ThemeType } from "@/types/types";
 import { THEME_KEY } from "@/utils/config";

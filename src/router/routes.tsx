@@ -3,27 +3,27 @@ import { lazy } from "react";
 import type { RouteConfig } from "@/types/types";
 import { APP_PATHS } from "./paths";
 import PublicLayout from "@/components/layouts/PublicLayout";
-import UsersPage from "@/pages/adminPages/usersPage/UsersPage";
-import WordPressUsers from "@/pages/adminPages/wpUsersPage";
-import MessagesPage from "@/pages/adminPages/messagesPage";
-import CommissionPage from "@/pages/affiliatePages/commissionPage";
+import UsersPage from "@/app-pages/adminPages/usersPage/UsersPage";
+import WordPressUsers from "@/app-pages/adminPages/wpUsersPage";
+import MessagesPage from "@/app-pages/adminPages/messagesPage";
+import CommissionPage from "@/app-pages/affiliatePages/commissionPage";
 
-const DashboardPage = lazy(() => import("@/pages/dashboardPage"));
-const SignInPage = lazy(() => import("@/pages/signInPage"));
-const SignUpPage = lazy(() => import("@/pages/signUpPage"));
-const NotFoundPage = lazy(() => import("@/pages/notFoundPage"));
-const UserProfilePage = lazy(() => import("@/pages/userProfilePage"));
+const DashboardPage = lazy(() => import("@/app-pages/dashboardPage"));
+const SignInPage = lazy(() => import("@/app-pages/signInPage"));
+const SignUpPage = lazy(() => import("@/app-pages/signUpPage"));
+const NotFoundPage = lazy(() => import("@/app-pages/notFoundPage"));
+const UserProfilePage = lazy(() => import("@/app-pages/userProfilePage"));
 const AffiliateLinksPage = lazy(
-  () => import("@/pages/affiliatePages/affLinksPage"),
+  () => import("@/app-pages/affiliatePages/affLinksPage"),
 );
-const ForgotPasswordPage = lazy(() => import("@/pages/forgotPasswordPage"));
-const ResetPasswordPage = lazy(() => import("@/pages/resetPasswordPage"));
-const ManageUserPage = lazy(() => import("@/pages/adminPages/manageUserPage"));
+const ForgotPasswordPage = lazy(() => import("@/app-pages/forgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("@/app-pages/resetPasswordPage"));
+const ManageUserPage = lazy(() => import("@/app-pages/adminPages/manageUserPage"));
 
 // Landing Page
-const LandingPage = lazy(() => import("@/pages/landingPages/LandingPage"));
-const CookiePolicy = lazy(() => import("@/pages/landingPages/CookiePolicy"));
-const PrivacyPolicy = lazy(() => import("@/pages/landingPages/PrivacyPolicy"));
+const LandingPage = lazy(() => import("@/app-pages/landingPages/LandingPage"));
+const CookiePolicy = lazy(() => import("@/app-pages/landingPages/CookiePolicy"));
+const PrivacyPolicy = lazy(() => import("@/app-pages/landingPages/PrivacyPolicy"));
 
 export const publicRoutes: RouteConfig[] = [
   {

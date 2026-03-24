@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import GridShape from "../../components/common/GridShape";
 import Link from "next/link";
@@ -17,7 +18,7 @@ export default function AuthLayout({
             {/* <!-- ===== Common Grid Shape Start ===== --> */}
             <GridShape />
             <div className="flex flex-col items-center max-w-xs">
-              <Link to="/" className="block mb-4">
+              <Link href="/" className="block mb-4">
                 <img
                   width={231}
                   height={48}

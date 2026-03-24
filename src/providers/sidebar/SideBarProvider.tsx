@@ -1,3 +1,4 @@
+'use client'
 import SidebarContext from "@/providers/sidebar/sidebar.context";
 import { useEffect, useState, type ReactNode } from "react";
 

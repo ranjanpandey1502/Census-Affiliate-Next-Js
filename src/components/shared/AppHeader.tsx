@@ -84,7 +84,7 @@ const AppHeader: React.FC = () => {
           </button>
 
 {/* Icons shown on header of mobile */}
-          <Link to="/" className="lg:hidden">
+          <Link href="/" className="lg:hidden">
             <img
               className="h-8 w-auto dark:hidden"
               src="/images/logo/Logo-white.png"

@@ -1,4 +1,4 @@
-"use-client";
+'use client'
 import useSideBar from "@/hooks/useSideBar";
 import SideBarProvider from "@/providers/sidebar/SideBarProvider";
 import AppHeader from "@/components/shared/AppHeader";

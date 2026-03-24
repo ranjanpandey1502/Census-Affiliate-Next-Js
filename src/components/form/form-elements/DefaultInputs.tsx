@@ -3,8 +3,8 @@ import ComponentCard from "../../common/ComponentCard";
 import Label from "../Label";
 import Input from "../input/InputField";
 import Select from "../Select";
-import { EyeCloseIcon, EyeIcon, TimeIcon } from "../../../assets/icons/index.ts";
-import DatePicker from "../date-picker.tsx";
+import { EyeCloseIcon, EyeIcon, TimeIcon } from "../../../assets/icons/index";
+import DatePicker from "../date-picker";
 
 export default function DefaultInputs() {
   const [showPassword, setShowPassword] = useState(false);

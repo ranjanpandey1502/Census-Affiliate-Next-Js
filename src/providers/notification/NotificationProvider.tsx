@@ -1,3 +1,4 @@
+'use client'
 import { useState, type ReactNode } from "react";
 import type { NotificationObjectType } from "./notification.context";
 import NotificationContext from "./notification.context";
@@ -24,7 +25,7 @@ export default function NotificationProvider({
   }
 
   return (
-    <div className="relative">
+    <div className="relative h-full w-full">
       {notification && (
         <div
           className={`fixed top-0 right-0 w-full z-[100000] transition-transform duration-300 ease-out ${

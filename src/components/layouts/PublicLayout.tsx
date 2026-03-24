@@ -1,18 +1,21 @@
-import { type ReactNode } from "react";
+"use client";
+import { useEffect, type ReactNode } from "react";
 
 //
 import useAuth from "@/providers/auth/useAuth";
 import { APP_PATHS } from "@/router/paths";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
-  const {userInfo} = useAuth();
-  const router =useRouter();
+  const { userInfo } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (userInfo) router.push(APP_PATHS.dashboard);
+  }, []);
 
   if (userInfo) {
-    router.push(APP_PATHS.dashboard)
-    return <></>
-
+    return <></>;
   }
   return children;
 }
