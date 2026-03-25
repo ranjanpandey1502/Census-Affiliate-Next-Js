@@ -11,7 +11,7 @@ export default function PrivateLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!userInfo) router.push(APP_PATHS.signInPage);
-  }, []);
+  }, [userInfo]);
 
   if (!userInfo) {
     return <></>;

@@ -12,7 +12,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (userInfo) router.push(APP_PATHS.dashboard);
-  }, []);
+  }, [userInfo]);
 
   if (userInfo) {
     return <></>;

@@ -15,8 +15,13 @@ export type SignUpResType = {
 };
 
 export type SignInResType = {
+  success: true,
   access_token: string;
   refresh_token: string;
+} | {
+  success: false,
+  msg: string,
+  data: string
 };
 
 export type UserType = {

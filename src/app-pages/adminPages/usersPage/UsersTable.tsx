@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 //
 import { CheckCircleIcon, InfoIcon } from "@/assets/icons";
@@ -33,9 +33,29 @@ export default function UsersTable() {
   const { showNotification } = useNotification();
   const [activateUser, setActivateUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isActivating, setIsActivating] = useState(false);
+
+  const fetchUsers = useCallback(async () => {
+    try {
+      const res = await ApiService.getUsers(page, limit);
+      if (res) {
+        setUsers(res.data.data);
+        setTotal(res.data.total);
+      }
+    } catch (error) {
+      showNotification({
+        notificationType: "error",
+        title: "Failed to fetch Users",
+      });
+      console.trace(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [limit, page]);
 
   async function activateAffiliate() {
     if (!activateUser) return;
+    setIsActivating(true);
     try {
       await ApiService.activateAffiliateAccount(activateUser.id);
       setActivateUser(null);
@@ -43,34 +63,21 @@ export default function UsersTable() {
         notificationType: "success",
         title: "Affiliate Account Activated",
       });
+      fetchUsers();
     } catch (error) {
       console.trace(error);
       showNotification({
         notificationType: "error",
         title: "Error Activating Affiliate Account",
       });
+    } finally {
+      setIsActivating(false);
     }
   }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await ApiService.getUsers(page, limit);
-        if (res) {
-          setUsers(res.data.data);
-          setTotal(res.data.total);
-        }
-      } catch (error) {
-        showNotification({
-          notificationType: "error",
-          title: "Failed to fetch Users",
-        });
-        console.trace(error);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [limit, page]);
+    fetchUsers();
+  }, [fetchUsers]);
   return (
     <>
       <ComponentCard title="Users">
@@ -215,7 +222,7 @@ export default function UsersTable() {
           }}
           onConfirm={activateAffiliate}
           cancelText="Cancel"
-          confirmText="Activate"
+          confirmText={ isActivating ? "Loading": "Activate"}
         />
       </Modal>
     </>

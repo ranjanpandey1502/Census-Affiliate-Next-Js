@@ -23,7 +23,7 @@ const InitialValue = {
   first_name: "",
   last_name: "",
   username: "",
-  contact_no: ""
+  phone_no: ""
 };
 
 export default function SignUpForm() {
@@ -33,6 +33,7 @@ export default function SignUpForm() {
   const { showNotification } = useNotification();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function onSubmit(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -65,12 +66,25 @@ export default function SignUpForm() {
         message: "You will be able login once your account has been verified",
         notificationType: "success",
       });
-    } catch (error) {
-      console.trace(error);
-      showNotification({
-        notificationType: "error",
-        title: "Registration Failed",
-      });
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.status === 400) {
+          showNotification({
+            notificationType: "error",
+            title: err.response?.data.msg || "Registration Failed",
+          });
+        }
+        console.log(err.response?.data?.success)
+        if (err.response?.data?.success === false) {
+          setErrorMsg(err.response?.data?.data);
+        }
+      } else {
+      console.trace(err);
+        showNotification({
+          notificationType: "error",
+          title: "Registration Failed",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -109,8 +123,13 @@ export default function SignUpForm() {
               Sign Up
             </h1>
             <p className="text-sm text-gray-500 dark:te[10px]-gray-400">
-              Enter your email and password to sign up!
+              Want to be part of our affiliate program? 
             </p>
+            <div className="mt-2 ">
+              {errorMsg && (
+                <p className="text-red-600 text-sm mt-1">{errorMsg}</p>
+              )}
+            </div>
           </div>
           <div>
             <div className="relative py-3 sm:py-5">

@@ -26,8 +26,8 @@ export default function SignInForm() {
   >({});
   const { showNotification } = useNotification();
   const [showPassword, setShowPassword] = useState(false);
-  // const [isChecked, setIsChecked] = useState(false);
   const { signInUser } = useAuth();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function onSubmit(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -46,14 +46,21 @@ export default function SignInForm() {
     try {
       setIsLoading(true);
       const res = await ApiService.loginUser(values.email, values.password);
-      signInUser(res.data.access_token, res.data.refresh_token);
+      if (res.data?.success) {
+        signInUser(res.data.access_token, res.data.refresh_token);
+      } else {
+        setErrorMsg(res.data.data);
+      }
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response?.status === 400) {
           showNotification({
             notificationType: "error",
-            title: err.response?.data.msg || "Login Failed"
-          })
+            title: err.response?.data.msg || "Login Failed",
+          });
+        }
+        if (err.response?.data?.success === false) {
+          setErrorMsg(err.response?.data?.data);
         }
       }
       console.trace(err);
@@ -78,6 +85,11 @@ export default function SignInForm() {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Enter your email and password to sign in!
             </p>
+            <div className="mt-2 ">
+              {errorMsg && (
+                <p className="text-red-600 text-sm mt-1">{errorMsg}</p>
+              )}
+            </div>
           </div>
           <div>
             <div className="relative py-3 sm:py-5">
