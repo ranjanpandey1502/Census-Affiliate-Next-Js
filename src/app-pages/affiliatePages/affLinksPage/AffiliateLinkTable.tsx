@@ -19,6 +19,10 @@ import TableLimitDropDown from "@/components/common/table/TableLimitDropDown";
 import TableSpinner from "@/components/common/table/TableSpinner";
 import TableNoContent from "@/components/common/table/TableNoContent";
 import { Tooltip } from "@/components/common/Tooltip";
+// social icons
+import FacebookIcon from "@/assets/social-icons/facebook.svg";
+import WhatsAppicon from "@/assets/social-icons/whatsapp.svg";
+import PinterestIcon from '@/assets/social-icons/pinterest.svg';
 
 export default function AffiliateLinkTable() {
   const [affiliate_links, setAffiliateLinks] = useState<
@@ -115,6 +119,12 @@ export default function AffiliateLinkTable() {
                   >
                     Actions
                   </TableCell>
+                  <TableCell
+                    isHeader
+                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  >
+                    Share on Social
+                  </TableCell>
                 </TableRow>
               </TableHeader>
               {isLoading ? (
@@ -142,15 +152,29 @@ export default function AffiliateLinkTable() {
                         </Badge>
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                        <Tooltip content={isCopied ? "Text Copied": "Copy Link"}>
-                          <Button
+                        <Tooltip
+                          content={isCopied ? "Text Copied" : "Copy Link"}
+                        >
+                          <button
+                            className="ml-2"
                             onClick={() =>
                               copyAffiliateLink(aff.affiliate_slug)
                             }
                           >
                             <CopyIcon />
-                          </Button>
+                          </button>
                         </Tooltip>
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400 flex flex-row gap-2">
+                          <a target="_blank" className="h-6 w-6" href={`https://www.facebook.com/sharer/sharer.php?u=${`${process.env.NEXT_PUBLIC_CENSUS_URL}?aff=${aff.affiliate_slug}`}`}>
+                        <FacebookIcon />
+                        </a>
+                        <a target="_blank" className="h-6 w-6" href={`https://api.whatsapp.com/send?text=${`${process.env.NEXT_PUBLIC_CENSUS_URL}?aff=${aff.affiliate_slug}`}`}>
+                        <WhatsAppicon />
+                        </a>
+                        <a target="_blank" className="h-6 w-6" href={`https://pinterest.com/pin/create/button/?url=${`${process.env.NEXT_PUBLIC_CENSUS_URL}?aff=${aff.affiliate_slug}`}&description=Census Travel`}>
+                        <PinterestIcon />
+                        </a>
                       </TableCell>
                     </TableRow>
                   ))}

@@ -136,7 +136,7 @@ export default function VisitByCountry() {
         </div>
       </div>
 
-      <div className="space-y-5 max-h-100 overflow-scroll no-scrollbar">
+      <div className="space-y-5 max-h-100 overflow-auto">
         {visitData.map((el) => (
           <ListItem
             key={el.ip_country_code}
