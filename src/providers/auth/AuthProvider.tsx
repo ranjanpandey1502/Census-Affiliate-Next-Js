@@ -53,7 +53,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     >
       {isLoading ? (
         <div className="h-screen w-full flex items-center justify-center dark:text-white">
-          <Spinner />
+          <Spinner size="lg" />
         </div>
       ) : (
         children
