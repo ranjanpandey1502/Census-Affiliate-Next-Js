@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { APP_PATHS } from '@/router/paths';
 
 const LOGO_WHITE = 'https://censustravel.com/wp-content/uploads/2025/09/Logo-white.png';
 
@@ -66,6 +67,12 @@ export function Navbar() {
                 {link.name}
               </button>
             ))}
+            <Link
+              href={APP_PATHS.signInPage}
+              className="text-sm font-semibold text-white/90 hover:text-accent transition-colors duration-200"
+            >
+              Login
+            </Link>
             <button
               onClick={() => scrollToSection('register')}
               className="px-6 py-2.5 rounded-full font-semibold text-sm bg-accent text-primary hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
@@ -111,6 +118,13 @@ export function Navbar() {
               {link.name}
             </button>
           ))}
+          <Link
+            href={APP_PATHS.signInPage}
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-left border-b border-white/10 pb-4 hover:text-accent transition-colors"
+          >
+            Login
+          </Link>
           <button
             onClick={() => scrollToSection('register')}
             className="mt-4 gold-gradient text-primary px-6 py-4 rounded-xl font-sans font-bold shadow-lg"
