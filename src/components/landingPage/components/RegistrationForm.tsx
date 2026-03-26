@@ -22,7 +22,7 @@ const InitialValue = {
   first_name: "",
   last_name: "",
   username: "",
-  contact_no: "",
+  phone_no: "",
 };
 
 export function RegistrationForm() {
