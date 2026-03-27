@@ -23,7 +23,8 @@ const InitialValue = {
   first_name: "",
   last_name: "",
   username: "",
-  phone_no: ""
+  phone_no: "",
+  referred: ""
 };
 
 export default function SignUpForm() {
@@ -57,7 +58,8 @@ export default function SignUpForm() {
         values.first_name,
         values.last_name,
         values.password,
-        values.phone_no
+        values.phone_no,
+        values.referred
       );
       setValue(InitialValue);
       router.push(APP_PATHS.signInPage);
@@ -89,7 +91,7 @@ export default function SignUpForm() {
       setIsLoading(false);
     }
   }
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
     setValue((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: undefined })); // clear error on change
@@ -266,23 +268,38 @@ export default function SignUpForm() {
                     </p>
                   )}
                 </div>
-                {/* <div className="flex items-center gap-3">
-                  <Checkbox
+                <div className="space-y-2">
+                    <Label className="text-sm font-semibold text-primary">
+                      How did you hear about us?
+                    </Label>
+                    <select
+                      name="referred"
+                      defaultValue=""
+                      value={values.referred}
+                      className={`premium-input appearance-none`}
+                      onChange={handleChange}
+                    >
+                      <option value="" disabled>
+                        Please select an option
+                      </option>
+                      <option value="search">Search Engine (Google)</option>
+                      <option value="social">Social Media</option>
+                      <option value="referral">Friend or Colleague</option>
+                      <option value="blog">Blog/Article</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                <div className="flex items-center gap-3">
+                  {/* <Checkbox
                     className="w-5 h-5"
                     checked={isChecked}
                     onChange={setIsChecked}
-                  />
+                  /> */}
                   <p className="inline-block font-normal text-gray-500 dark:te[10px]-gray-400">
-                    By creating an account means you agree to the{" "}
-                    <span className="text-gray-800 dark:text-white/90">
-                      Terms and Conditions,
-                    </span>{" "}
-                    and our{" "}
-                    <span className="text-gray-800 dark:text-white">
-                      Privacy Policy
-                    </span>
+                    By registering, you agree to our Affiliate Terms of
+                      Service and Privacy Policy.
                   </p>
-                </div> */}
+                </div>
                 <div>
                   <button
                     className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"

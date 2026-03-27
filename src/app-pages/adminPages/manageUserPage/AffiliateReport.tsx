@@ -1,14 +1,13 @@
 import Spinner from "@/components/common/Spinner";
 import MetricCards from "@/app-pages/dashboardPage/components/MetricCards";
-import MonthlyCommission from "@/app-pages/dashboardPage/components/MonthlyCommission";
 import MonthlyVisitCount from "@/app-pages/dashboardPage/components/MonthlyVisitCount";
 import useNotification from "@/providers/notification/useNotification";
 import ApiService from "@/services/Api.service";
 import type { AffiliateDashboardAnalyticsResType } from "@/types/api-response.types";
 import { useEffect, useState } from "react";
+import AffiliateLeadStatistics from "./AffiliateLeadStatistics";
 
 export default function AffiliateReport({ id }: { id: number }) {
-  console.log(id);
   const [dashboard_data, setDashboardData] = useState<
     AffiliateDashboardAnalyticsResType["data"] | null
   >(null);
@@ -43,7 +42,7 @@ export default function AffiliateReport({ id }: { id: number }) {
         <MonthlyVisitCount data={dashboard_data.monthlyVisit.data} />
       </div>
       <div className="col-span-12 xl:col-span-5">
-        <MonthlyCommission />
+        <AffiliateLeadStatistics affiliateId={id} />
       </div>
     </div>
   );

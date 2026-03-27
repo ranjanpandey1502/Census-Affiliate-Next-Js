@@ -23,6 +23,7 @@ const InitialValue = {
   last_name: "",
   username: "",
   phone_no: "",
+  referred: "",
 };
 
 export function RegistrationForm() {
@@ -31,6 +32,7 @@ export function RegistrationForm() {
   const { showNotification } = useNotification();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function onSubmit(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -55,6 +57,7 @@ export function RegistrationForm() {
         values.last_name,
         values.password,
         values.phone_no,
+        values.referred,
       );
       setValue(InitialValue);
       router.push(APP_PATHS.signInPage);
@@ -63,21 +66,35 @@ export function RegistrationForm() {
         message: "You will be able login once your account has been verified",
         notificationType: "success",
       });
-    } catch (error) {
-      console.trace(error);
-      showNotification({
-        notificationType: "error",
-        title: "Registration Failed",
-      });
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.status === 400) {
+          showNotification({
+            notificationType: "error",
+            title: err.response?.data.msg || "Registration Failed",
+          });
+        }
+        console.log(err.response?.data?.success);
+        if (err.response?.data?.success === false) {
+          setErrorMsg(err.response?.data?.data);
+        }
+      } else {
+        console.trace(err);
+        showNotification({
+          notificationType: "error",
+          title: "Registration Failed",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
   }
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
     setValue((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: undefined })); // clear error on change
   }
+
   function checkUsernameExists() {
     if (values.username) {
       ApiService.userNameExists(values.username)
@@ -285,9 +302,11 @@ export function RegistrationForm() {
                       How did you hear about us?
                     </label>
                     <select
-                      name="source"
+                      name="referred"
                       defaultValue=""
+                      value={values.referred}
                       className={`premium-input appearance-none ${SELECT_CHEVRON}`}
+                      onChange={handleChange}
                     >
                       <option value="" disabled>
                         Please select an option
@@ -298,6 +317,11 @@ export function RegistrationForm() {
                       <option value="blog">Blog/Article</option>
                       <option value="other">Other</option>
                     </select>
+                  </div>
+                  <div className="mt-2 ">
+                    {errorMsg && (
+                      <p className="text-red-600 text-sm mt-1">{errorMsg}</p>
+                    )}
                   </div>
 
                   <div className="pt-4">

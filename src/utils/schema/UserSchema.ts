@@ -30,6 +30,7 @@ export const SignUpSchema = z.object({
     .max(10, "Last name can not be more than 10 characters"),
   password: PasswordSchema,
   phone_no: z.string().min(6, "Please Enter a valid Phone no"),
+  referred: z.string().optional()
 });
 
 export const ResetPasswordSchema = z

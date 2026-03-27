@@ -3,6 +3,13 @@ import type { UserType } from "@/types/api-response.types";
 export type AdminInfoCardProps = {
   data: UserType;
 };
+const ReferredMapping:Record<string, string> = {
+"search": "Search Engine (Google)",
+"social": "Social Media",
+"referral": "Friend or Colleague",
+"blog": "Blog/Article",
+"other": "Other",
+}
 
 export default function AdminInfoCard({ data }: AdminInfoCardProps) {
   return (
@@ -47,6 +54,14 @@ export default function AdminInfoCard({ data }: AdminInfoCardProps) {
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
                 {data.phone_no || "-"}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Referred source
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {data.referred ? ReferredMapping[data.referred] || "-" : "-"}
               </p>
             </div>
           </div>

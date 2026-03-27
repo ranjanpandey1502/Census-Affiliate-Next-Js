@@ -34,6 +34,7 @@ export type UserType = {
   role: string;
   status: string;
   phone_no?: string;
+  referred?: string
 };
 
 export type UsersResType = {

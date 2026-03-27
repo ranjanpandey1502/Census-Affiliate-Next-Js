@@ -214,7 +214,7 @@ export default function UsersTable() {
           heading="Activate Affiliate Account?"
           content={
             <ModalText
-              text={`Activate account for ${activateUser?.first_name} ${activateUser?.last_name}? User will be notified by email.`}
+              text={`Activate account for ${activateUser?.first_name} ${activateUser?.last_name}?\n After activation user will be notified by mail and will be able to login and send referral.`}
             />
           }
           onCancel={() => {

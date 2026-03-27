@@ -117,6 +117,7 @@ class APIService {
     last_name: string,
     password: string,
     phone_no?: string,
+    referred?: string,
   ) => {
     const res = await this.serverAPI.post<SignUpResType>("/api/signup", {
       email,
@@ -125,6 +126,7 @@ class APIService {
       last_name,
       password,
       phone_no,
+      referred,
     });
     return res;
   };
@@ -225,7 +227,7 @@ class APIService {
     const res = await this.serverAPI<CommissionMetricResType>(
       "/api/commission-metrics",
     );
-    return res
+    return res;
   };
 
   // Affiliate Links
@@ -360,7 +362,7 @@ class APIService {
     const res = await this.serverAPI<CommissionMetricResType>(
       "/api/commission-metrics-admin",
     );
-    return res
+    return res;
   };
 
   // admin
@@ -395,6 +397,12 @@ class APIService {
     );
     return res;
   };
+  getAffiliateLeadsMetricsForAdmin = async (id: number) =>{
+    const res = await this.serverAPI.get<LeadsMetricsResType>(
+      `/api/admin-leads-metrics/${id}`,
+    );
+    return res
+  }
 
   getUser = async (id: number) => {
     const res = await this.serverAPI.get<GetUserProfileResType>(
@@ -439,4 +447,5 @@ class APIService {
   };
 }
 
-export default new APIService();
+const ApiService = new APIService();
+export default ApiService;

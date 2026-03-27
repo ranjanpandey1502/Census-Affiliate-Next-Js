@@ -35,7 +35,8 @@ export default function ManageUserPage() {
         setIsLoading(false);
       }
     })();
-  }, [userInfo]);
+  }, [userInfo, params.id]);
+  
   if (userInfo?.role !== ADMIN_ROLE) return <></>;
   if (isLoading || !user)
     return (
